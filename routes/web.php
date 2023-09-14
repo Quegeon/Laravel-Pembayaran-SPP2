@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
+use App\Http\Controllers\KelasController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,3 +28,20 @@ Route::get('/user/{id}/show/pwd', [UserController::class, 'pwd']);
 Route::post('/user/{id}/show/chpwd', [UserController::class, 'chpwd']);
 Route::post('/user/{id}/update', [UserController::class, 'update']);
 Route::get('/user/{id}/destroy', [UserController::class, 'destroy']);
+
+
+
+
+
+
+
+
+
+
+# Route Kelas
+Route::get('/kelas', [KelasController::class, 'index']);
+Route::get('/kelas/create', [KelasController::class, 'create']);
+Route::post('/kelas/store', [KelasController::class, 'store']);
+Route::get('/kelas/{id}/show', [KelasController::class, 'show']);
+Route::post('/kelas/{id}/update', [KelasController::class, 'update']);
+Route::get('/kelas/{id}/destroy', [KelasController::class, 'destroy']);
