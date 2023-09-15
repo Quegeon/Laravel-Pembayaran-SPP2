@@ -209,4 +209,15 @@ class PembayaranController extends Controller
             }
         }
     }
+
+    public function print () {
+        $year = Carbon::today();
+        $pembayaran = Pembayaran::all();
+        return view('Pembayaran.print', compact(['pembayaran']));
+    }
+
+    public function receipt ($id) {
+        $pembayaran = Pembayaran::find($id);
+        return view('Pembayaran.receipt', compact(['pembayaran']));
+    }
 }

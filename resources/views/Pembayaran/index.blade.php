@@ -16,6 +16,7 @@
                         <div class="card-header">
                             <h3>Halaman Kelola Data Pembayaran</h3>
                             <a href="/pembayaran/create" class="btn btn-primary">Tambah Data</a>
+                            <a href="/pembayaran/print" class="btn btn-secondary">Cetak</a>
                         </div>
                         <div class="card-body">
                             <table class="table table-bordered table-hover table-striped" id="example">
@@ -48,6 +49,7 @@
                                             <td>
                                                 <a href="/pembayaran/{{ $p->id }}/show" class="btn btn-warning">Ubah</a>
                                                 <a href="/pembayaran/{{ $p->id }}/destroy" class="btn btn-danger" onclick="return confirm('Konfirmasi Hapus Data')">Hapus</a>
+                                                <a href="/pembayaran/{{ $p->id }}/receipt" class="btn btn-success">Struk</a>
                                             </td>
                                         </tr>
                                     @endforeach

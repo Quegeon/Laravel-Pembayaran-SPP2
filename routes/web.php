@@ -69,5 +69,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/pembayaran/store', [PembayaranController::class, 'store']);
     Route::get('/pembayaran/{id}/show', [PembayaranController::class, 'show']);
     Route::post('/pembayaran/{id}/update', [PembayaranController::class, 'update']);
-    Route::get('/pembayaran/{id}/destroy', [PembayaranController::class, 'destroy']); 
+    Route::get('/pembayaran/{id}/destroy', [PembayaranController::class, 'destroy']);
+    Route::get('/pembayaran/print', [PembayaranController::class, 'print']);
+    Route::get('/pembayaran/{id}/receipt', [PembayaranController::class, 'receipt']);
+
 });
