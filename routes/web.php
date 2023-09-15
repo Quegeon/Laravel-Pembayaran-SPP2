@@ -6,6 +6,7 @@ use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\SPPController;
 use App\Http\Controllers\PembayaranController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +19,12 @@ use App\Http\Controllers\PembayaranController;
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard');
-});
+// Route::get('/', function () {
+//     return view('dashboard');
+// });
+
+# Route Dashboard
+Route::get('/dashboard', [DashboardController::class, 'index']);
 
 # Route User
 Route::get('/user', [UserController::class,'index']);
