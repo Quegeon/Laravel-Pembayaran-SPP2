@@ -14,4 +14,8 @@ class SPP extends Model
         'tahun',
         'nominal'
     ];
+
+    public function SPP () {
+        return $this->hasMany(SPP::class, 'id_spp', 'id');
+    }
 }

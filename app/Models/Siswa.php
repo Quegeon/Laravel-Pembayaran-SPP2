@@ -20,6 +20,10 @@ class Siswa extends Model
         'email'
     ];
 
+    public function Siswa () {
+        return $this->hasMany(Siswa::class, 'nis', 'nis');
+    }
+
     public function Kelas () {
         return $this->belongsTo(Kelas::class, 'id_kelas', 'id');
     } 

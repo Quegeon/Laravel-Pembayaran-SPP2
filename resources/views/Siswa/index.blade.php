@@ -40,7 +40,7 @@
                                         <td>{{ $s->no_telp }}</td>
                                         <td>{{ $s->email }}</td>
                                         <td>
-                                            <a href="/siswa/{{ $s->nis }}/show" class="btn btn-warning">Edit</a>
+                                            <a href="/siswa/{{ $s->nis }}/show" class="btn btn-warning">Ubah</a>
                                             <a href="/siswa/{{ $s->nis }}/destroy" class="btn btn-danger" onclick="return confirm('Konfirmasi Hapus Data')">Hapus</a>
                                         </td>
                                     </tr>

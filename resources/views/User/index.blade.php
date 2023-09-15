@@ -36,7 +36,7 @@
                                         <td>{{ $u->username }}</td>
                                         <td>{{ $u->level }}</td>
                                         <td>
-                                            <a href="/user/{{ $u->id }}/show" class="btn btn-warning">Edit</a>
+                                            <a href="/user/{{ $u->id }}/show" class="btn btn-warning">Ubah</a>
                                             <a href="/user/{{ $u->id }}/show/password" class="btn btn-warning">Ubah Pasword</a>
                                             <a href="/user/{{ $u->id }}/destroy" class="btn btn-danger" onclick="return confirm('Konfirmasi Hapus Data')">Hapus</a>
                                         </td>
