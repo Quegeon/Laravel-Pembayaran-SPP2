@@ -19,7 +19,7 @@
                                     <input type="text" name="nama" class="form-control" placeholder="{{ $user->nama }}" value="{{ $user->nama }}">
                                     @if ($errors->any())
                                         <p class="text-danger">
-                                            {{ $errors->first('nama') }}
+                                            * {{ $errors->first('nama') }}
                                         </p>
                                     @endif
                                 </div>
@@ -28,7 +28,7 @@
                                     <input type="text" name="username" class="form-control" placeholder="{{ $user->username }}" value="{{ $user->username }}">
                                     @if ($errors->any())
                                         <p class="text-danger">
-                                            {{ $errors->first('username') }}
+                                            * {{ $errors->first('username') }}
                                         </p>
                                     @endif
                                 </div>
@@ -41,7 +41,7 @@
                                     </select>
                                     @if ($errors->any())
                                         <p class="text-danger">
-                                            {{ $errors->first('level') }}
+                                            * {{ $errors->first('level') }}
                                         </p>
                                     @endif
                                 </div>

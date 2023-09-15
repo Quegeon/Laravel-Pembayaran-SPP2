@@ -15,8 +15,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data = User::all();
-        return view('User.index', compact(['data']));
+        $user = User::all();
+        return view('User.index', compact(['user']));
     }
 
     /**
@@ -58,7 +58,7 @@ class UserController extends Controller
 
         } catch (Exception $e){
             return redirect('/user')->with('status',[
-                'title' => 'Error Store Input Data',
+                'title' => 'Error Store Data',
                 'type' => 'danger'
             ]);
         }
@@ -73,17 +73,16 @@ class UserController extends Controller
      */
     public function show($id)
     {
+        $user = User::find($id);
 
-        try {
-            $user = User::find($id);
-
-            return view('User.show', compact(['user']));
-
-        } catch (Exception $e) {
+        if ($user === null) {
             return redirect('/user')->with('status',[
-                'title' => "Error Can't Find Target Data",
+                'title' => "Error Invalid Target Data",
                 'type' => 'danger'
             ]);
+
+        } else {
+            return view('User.show', compact(['user']));
         }
     }
 
@@ -107,32 +106,43 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'nama' => 'required|max:50',
-            'username' => 'required|max:20|min:8',
-            'level' => 'required|max:8'
-        ]);
-        
-        try {
-            $user = User::find($id);
-            $user->update([
-                'nama' => $request->nama,
-                'username' => $request->username,
-                'level' => $request->level,
-                $request->except(['_token'])
-            ]);
+        $user = User::find($id);
 
+        if ($user === null) {
             return redirect('/user')->with('status',[
-                'title' => 'Data Successfully Added',
-                'type' => 'success'
-            ]);
-
-        } catch (\Throwable $th) {
-            return redirect('/user')->with('status',[
-                'title' => 'Error Update Data',
+                'title' => "Error Invalid Target Data",
                 'type' => 'danger'
             ]);
+
+        } else {
+            $request->validate([
+                'nama' => 'required|max:50',
+                'username' => 'required|max:20|min:8',
+                'level' => 'required|max:8'
+            ]);
+            
+            try {
+                $user->update([
+                    'nama' => $request->nama,
+                    'username' => $request->username,
+                    'level' => $request->level,
+                    $request->except(['_token'])
+                ]);
+    
+                return redirect('/user')->with('status',[
+                    'title' => 'Data Successfully Updated',
+                    'type' => 'success'
+                ]);
+    
+            } catch (\Throwable $th) {
+                return redirect('/user')->with('status',[
+                    'title' => 'Error Update Data',
+                    'type' => 'danger'
+                ]);
+            }
         }
+
+        
     }
 
     /**
@@ -143,62 +153,78 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        try {
-            $user = User::find($id);
-            $user->delete();
+        $user = User::find($id);
 
+        if ($user === null) {
+            return redirect('/user')->with('status',[
+                'title' => "Error Invalid Target Data",
+                'type' => 'danger'
+            ]);
+
+        } else {
+            $user->delete();
             return redirect('/user')->with('status',[
                 'title' => 'Data Successfully Deleted!',
                 'type' => 'warning'
             ]);
-
-        } catch (\Throwable $th) {
-            return redirect('/user')->with('status',[
-                'title' => 'Error Destroy Data',
-                'type' => 'danger'
-            ]);
         }
     }
 
-    public function pwd ($id) {
-        try {
-            $user = User::find($id);
+    public function show_password ($id) {
+        $user = User::find($id);
 
-            return view('User.show-pwd', compact(['user']));
-
-        } catch (Exception $e) {
+        if ($user === null) {
             return redirect('/user')->with('status',[
-                'title' => "Error Can't Find Target Data",
+                'title' => "Error Invalid Target Data",
                 'type' => 'danger'
-            ]);
-        }
-    }
-
-    public function chpwd (Request $request, $id) {
-        $request->validate([
-            'npwd' => 'required|max:20|min:8',
-            'cpwd' => 'required|max:20|min:8'
-        ]);
-
-        $npwd = $request->npwd;
-        $cpwd = $request->cpwd;
-
-        if ($npwd === $cpwd) {
-            $user = User::find($id);
-            $user->update([
-                'password' => bcrypt($cpwd)
-            ]);
-
-            return redirect('/user')->with('status',[
-                'title' => 'Password Successfully Changed!',
-                'type' => 'success'
             ]);
 
         } else {
-            return back()->with('status',[
-                'title' => "Input Doesn't Match!",
+            return view('User.show-password', compact(['user']));
+        }
+    }
+
+    public function change_password (Request $request, $id) {
+        $user = User::find($id);
+
+        if ($user === null) {
+            return redirect('/user')->with('status',[
+                'title' => "Error Invalid Target Data",
                 'type' => 'danger'
             ]);
+
+        } else {
+            $request->validate([
+                'new_password' => 'required|max:20|min:8',
+                'confirm_password' => 'required|max:20|min:8'
+            ]);
+
+            $new = $request->new_password;
+            $confirm = $request->confirm_password;
+
+            if ($new === $confirm) {
+                try {
+                    $user->update([
+                        'password' => bcrypt($confirm)
+                    ]);
+    
+                    return redirect('/user')->with('status',[
+                        'title' => 'Password Successfully Changed!',
+                        'type' => 'success'
+                    ]);
+                } catch (\Throwable $th) {
+                    return redirect('/user')->with('status',[
+                        'title' => 'Error Change Password',
+                        'type' => 'danger'
+                    ]);
+                }
+
+            } else {
+                return back()->with('status',[
+                    'title' => "Password Doesn't Match!",
+                    'type' => 'danger'
+                ]);
+            }
         }
     }
 }

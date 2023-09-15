@@ -12,10 +12,10 @@ class Kelas extends Model
 
     protected $fillable = [
         'keterangan',
-        'keahlian_kompetensi'
+        'kompetensi_keahlian'
     ];
 
     public function Kelas () {
-        return $this->hasMany(Siswa::class, 'id_spp', 'id');
+        return $this->hasMany(Siswa::class, 'id_kelas', 'id');
     }
 }

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Siswa;
 use App\Models\Kelas;
 use Illuminate\Http\Request;
 
-class KelasController extends Controller
+class SiswaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +15,8 @@ class KelasController extends Controller
      */
     public function index()
     {
-        $kelas = Kelas::all();
-        return view('Kelas.index', compact(['kelas']));
+        $siswa = Siswa::all();
+        return view('Siswa.index', compact(['siswa']));
     }
 
     /**
@@ -25,7 +26,17 @@ class KelasController extends Controller
      */
     public function create()
     {
-        return view('Kelas.create');
+        $kelas = Kelas::all();
+        if ($kelas->first() === null) {
+            return redirect('/siswa')->with('status',[
+                'title' => 'Error, Please Input Data Kelas First',
+                'type' => 'danger'
+            ]);
+
+        } else {
+            return view('Siswa.create', compact(['kelas']));
+        }
+
     }
 
     /**
@@ -37,24 +48,30 @@ class KelasController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'keterangan' => 'required|min:4|max:11',
-            'kompetensi_keahlian' => 'required|min:15|max:40'
+            'nis' => 'required|min:10|max:11|unique:siswas',
+            'id_kelas' => 'required',
+            'nama' => 'required|max:50',
+            'no_telp' => 'min:12|max:13',
+            'email' => 'email|max:35'
         ]);
 
         try {
-            Kelas::create([
-                'keterangan' => $request->keterangan,
-                'kompetensi_keahlian' => $request->kompetensi_keahlian,
+            Siswa::create([
+                'nis' => $request->nis,
+                'id_kelas' => $request->id_kelas,
+                'nama' => $request->nama,
+                'no_telp' => $request->no_telp,
+                'email' => $request->email,
                 $request->except(['_token'])
-            ]);         
-            
-            return redirect('/kelas')->with('status',[
+            ]);
+
+            return redirect('/siswa')->with('status',[
                 'title' => 'Data Successfully Created',
                 'type' => 'success'
             ]);
 
         } catch (\Throwable $th) {
-            return redirect('/kelas')->with('status',[
+            return redirect('/siswa')->with('status',[
                 'title' => 'Error Store Data',
                 'type' => 'danger'
             ]);
@@ -69,16 +86,23 @@ class KelasController extends Controller
      */
     public function show($id)
     {
-        $kelas = Kelas::find($id);
+        $siswa = Siswa::find($id);
+        $kelas = Kelas::all();
 
-        if ($kelas === null) {
-            return redirect('/kelas')->with('status',[
+        if ($siswa === null) {
+            return redirect('/siswa')->with('status',[
                 'title' => 'Error Invalid Target Data',
                 'type' => 'danger'
-            ]);       
+            ]);
+
+        } else if ($kelas->first() === null) {
+            return redirect('/siswa')->with('status',[
+                'title' => 'Error, Please Input Data Kelas First!',
+                'type' => 'danger'
+            ]);
 
         } else {
-            return view('Kelas.show', compact(['kelas']));
+            return view('Siswa.show', compact(['siswa','kelas']));
         }
     }
 
@@ -102,38 +126,46 @@ class KelasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $kelas = Kelas::find($id);
+        $siswa = Siswa::find($id);
 
-        if ($kelas === null) {
-            return redirect('/kelas')->with('status',[
+        if ($siswa === null) {
+            return redirect('/siswa')->with('status',[
                 'title' => 'Error Invalid Target Data',
                 'type' => 'danger'
-            ]);       
-
+            ]);
+            
         } else {
             $request->validate([
-                'keterangan' => 'required|min:4|max:11',
-                'kompetensi_keahlian' => 'required|min:15|max:40'
+                'nis' => 'required|min:10|max:11',
+                'id_kelas' => 'required',
+                'nama' => 'required|max:50',
+                'no_telp' => 'min:12|max:13',
+                'email' => 'email|max:35'
             ]);
-
+    
             try {
-                $kelas->update([
-                    'keterangan' => $request->keterangan,
-                    'kompetensi_keahlian' => $request->kompetensi_keahlian
+                $siswa->update([
+                    'nis' => $request->nis,
+                    'id_kelas' => $request->id_kelas,
+                    'nama' => $request->nama,
+                    'no_telp' => $request->no_telp,
+                    'email' => $request->email,
+                    $request->except(['_token'])
                 ]);
-
-                return redirect('/kelas')->with('status',[
+    
+                return redirect('/siswa')->with('status',[
                     'title' => 'Data Successfully Updated',
                     'type' => 'success'
                 ]);
-
+    
             } catch (\Throwable $th) {
-                return redirect('/kelas')->with('status',[
+                return redirect('/siswa')->with('status',[
                     'title' => 'Error Update Data',
                     'type' => 'danger'
                 ]);
             }
         }
+
     }
 
     /**
@@ -144,24 +176,24 @@ class KelasController extends Controller
      */
     public function destroy($id)
     {
-        $kelas = Kelas::find($id);
+        $siswa = Siswa::find($id);
 
-        if ($kelas === null) {
-            return redirect('/kelas')->with('status',[
+        if ($siswa === null) {
+            return redirect('/siswa')->with('status',[
                 'title' => 'Error Invalid Target Data',
                 'type' => 'danger'
-            ]);       
+            ]);
 
         } else {
             try {
-                $kelas->delete();
+                $siswa->delete();
                 return redirect('/siswa')->with('status',[
                     'title' => 'Data Successfully Deleted',
                     'type' => 'warning'
                 ]);
 
             } catch (\Throwable $th) {
-                return redirect('/kelas')->with('status',[
+                return redirect('/siswa')->with('status',[
                     'title' => 'Error Destroy Data',
                     'type' => 'danger'
                 ]);

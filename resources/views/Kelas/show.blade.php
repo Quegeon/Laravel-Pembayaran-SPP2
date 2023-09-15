@@ -1,7 +1,7 @@
 @extends('layout.master')
 @section('title','Halaman Ubah Data Kelas')
 @section('content')
-<div class="container-wrapper">
+<div class="content-wrapper">
     <br>
     <section class="content">
         <div class="container-fluid">
@@ -13,21 +13,22 @@
                         </div>
                         <div class="card-body">
                             <form action="/kelas/{{ $kelas->id }}/update" method="post">
+                                @csrf
                                 <div class="form-group">
-                                    <label></label>
-                                    <input type="text" name="keterangan" class="form-control" placeholder="">
+                                    <label>Keterangan</label>
+                                    <input type="text" name="keterangan" class="form-control" value="{{ $kelas->keterangan }}" placeholder="Masukkan Nama dan Tingkat Kelas">
                                     @if ($errors->first('keterangan'))
                                         <p class="text-danger">
-                                            {{ $errors->first('keterangan') }}
+                                            * {{ $errors->first('keterangan') }}
                                         </p>
                                     @endif
                                 </div>
                                 <div class="form-group">
-                                    <label></label>
-                                    <input type="text" name="kompetensi_keahlian" class="form-control" placeholder="">
+                                    <label>Kompetensi Keahlian</label>
+                                    <input type="text" name="kompetensi_keahlian" class="form-control" value="{{ $kelas->kompetensi_keahlian }}" placeholder="Masukkan Kompetensi Keahlian">
                                     @if ($errors->first('kompetensi_keahlian'))
                                         <p class="text-danger">
-                                            {{ $errors->first('kompetensi_keahlian') }}
+                                            * {{ $errors->first('kompetensi_keahlian') }}
                                         </p>
                                     @endif
                                 </div>

@@ -1,7 +1,7 @@
 @extends('layout.master')
 @section('title','Halaman Tambah Data Kelas')
 @section('content')
-<div class="container-wrapper">
+<div class="content-wrapper">
     <br>
     <section class="content">
         <div class="container-fluid">
@@ -32,7 +32,7 @@
                                         </p>
                                     @endif
                                 </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">Simpan</button>
                                 <button type="reset" class="btn btn-secondary">Reset</button>
                             </form>
                         </div>    

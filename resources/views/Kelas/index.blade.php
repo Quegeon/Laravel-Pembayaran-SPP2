@@ -1,7 +1,7 @@
 @extends('layout.master')
 @section('title','Halaman Kelola Data Kelas')
 @section('content')
-<div class="container-wrapper">
+<div class="content-wrapper">
     <br>
     <section class="content">
         <div class="container-fluid">
@@ -32,7 +32,7 @@
                                         <tr>
                                             <td>{{ $k->id }}</td>
                                             <td>{{ $k->keterangan }}</td>
-                                            <td>{{ $k->keahlian_kompetensi }}</td>
+                                            <td>{{ $k->kompetensi_keahlian }}</td>
                                             <td>
                                                 <a href="/kelas/{{ $k->id }}/show" class="btn btn-warning">Ubah</a>
                                                 <a href="/kelas/{{ $k->id }}/destroy" class="btn btn-danger" onclick="return confirm('Konfirmasi Hapus Data')">Hapus</a>    

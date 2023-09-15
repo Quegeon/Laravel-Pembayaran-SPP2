@@ -16,23 +16,23 @@
                         <h3>Form Ubah Password</h3>
                     </div>
                     <div class="card-body">
-                        <form action="/user/{{ $user->id }}/show/chpwd" method="post">
+                        <form action="/user/{{ $user->id }}/change-password" method="post">
                             @csrf
                             <div class="form-group">
                                 <label>Password Baru</label>
-                                <input type="password" name="npwd" class="form-control" placeholder="Masukkan Password Baru">
-                                @if ($errors->first('npwd'))
+                                <input type="password" name="new_password" class="form-control" placeholder="Masukkan Password Baru">
+                                @if ($errors->first('new_password'))
                                     <p class="text-danger">
-                                        * {{ $errors->first('npwd') }}
+                                        * {{ $errors->first('new_password') }}
                                     </p>
                                 @endif
                             </div>
                             <div class="form-group">
                                 <label>Konfirmasi Password Baru</label>
-                                <input type="password" name="cpwd" class="form-control" placeholder="Masukkan Kembali Password Baru">
-                                @if ($errors->first('cpwd'))
+                                <input type="password" name="confirm_password" class="form-control" placeholder="Masukkan Kembali Password Baru">
+                                @if ($errors->first('confirm_password'))
                                     <p class="text-danger">
-                                        * {{ $errors->first('cpwd') }}
+                                        * {{ $errors->first('confirm_password') }}
                                     </p>
                                 @endif
                             </div>

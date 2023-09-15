@@ -1,5 +1,5 @@
 @extends('layout.master')
-@section('title','Halaman Kelola Data Petugas')
+@section('title','Halaman Kelola Data Siswa')
 @section('content')
 <div class="content-wrapper">
     <br>
@@ -14,33 +14,36 @@
                     @endif
                     <div class="card">
                         <div class="card-header">
-                            <h3>Halaman Kelola Data Petugas</h3>
-                            <a href="/user/create" id="example" class="btn btn-primary">Tambah Data</a>
+                            <h3>Halaman Kelola Data Siswa</h3>
+                            <a href="/siswa/create" class="btn btn-primary">Tambah Data</a>
                         </div>
                         <div class="card-body">
                             <table class="table table-bordered table-hover table-striped">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
+                                        <th>No</th>
+                                        <th>NIS</th>
                                         <th>Nama</th>
-                                        <th>Username</th>
-                                        <th>Level</th>
+                                        <th>Kelas</th>
+                                        <th>No Telp</th>
+                                        <th>Email</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($user as $u)
+                                    @foreach ($siswa as $s)
                                     <tr>
-                                        <td>{{ $u->id }}</td>
-                                        <td>{{ $u->nama }}</td>
-                                        <td>{{ $u->username }}</td>
-                                        <td>{{ $u->level }}</td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $s->nis }}</td>
+                                        <td>{{ $s->nama }}</td>
+                                        <td>{{ $s->Kelas->keterangan }}</td>
+                                        <td>{{ $s->no_telp }}</td>
+                                        <td>{{ $s->email }}</td>
                                         <td>
-                                            <a href="/user/{{ $u->id }}/show" class="btn btn-warning">Edit</a>
-                                            <a href="/user/{{ $u->id }}/show/password" class="btn btn-warning">Ubah Pasword</a>
-                                            <a href="/user/{{ $u->id }}/destroy" class="btn btn-danger" onclick="return confirm('Konfirmasi Hapus Data')">Hapus</a>
+                                            <a href="/siswa/{{ $s->nis }}/show" class="btn btn-warning">Edit</a>
+                                            <a href="/siswa/{{ $s->nis }}/destroy" class="btn btn-danger" onclick="return confirm('Konfirmasi Hapus Data')">Hapus</a>
                                         </td>
-                                    </tr>                                        
+                                    </tr>
                                     @endforeach
                                 </tbody>
                             </table>
@@ -50,5 +53,5 @@
             </div>
         </div>
     </section>
-</div>
+</div>    
 @endsection
