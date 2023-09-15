@@ -52,7 +52,7 @@ class UserController extends Controller
             ]);
 
             return redirect('/user')->with('status',[
-                'title' => 'Data Successfully Added',
+                'title' => 'Data Successfully Created',
                 'type' => 'success'
             ]);
 
