@@ -4,7 +4,7 @@
       <!-- Add icons to the links using the .nav-icon class
            with font-awesome or any other icon font library -->
       <li class="nav-item">
-        <a href="#" class="nav-link">
+        <a href="/dashboard" class="nav-link">
           <i class="nav-icon fas fa-home"></i>
           <p>
             Dashboard
@@ -21,9 +21,27 @@
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="pages/tables/simple.html" class="nav-link">
+            <a href="/user" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Kelola Data User</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/siswa" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Kelola Data Siswa</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/kelas" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Kelola Data Kelas</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/pembayaran" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Kelola Data Pembayaran</p>
             </a>
           </li>
           <li class="nav-item">
