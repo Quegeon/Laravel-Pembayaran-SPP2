@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Siswa;
 use App\Models\Kelas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SiswaController extends Controller
 {
@@ -15,8 +16,17 @@ class SiswaController extends Controller
      */
     public function index()
     {
-        $siswa = Siswa::all();
-        return view('Siswa.index', compact(['siswa']));
+        if (Auth()->user()->level !== 'admin') {
+            Auth::logout();
+            return redirect('/')->with('status',[
+                'title' => "Doesn't have access",
+                'type' => 'danger'
+            ]);
+
+        } else {
+            $siswa = Siswa::all();
+            return view('Siswa.index', compact(['siswa']));
+        }
     }
 
     /**

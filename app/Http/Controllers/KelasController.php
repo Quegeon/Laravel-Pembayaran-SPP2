@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kelas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class KelasController extends Controller
 {
@@ -14,8 +15,18 @@ class KelasController extends Controller
      */
     public function index()
     {
-        $kelas = Kelas::all();
-        return view('Kelas.index', compact(['kelas']));
+        if (Auth()->user()->level !== 'admin') {
+            Auth::logout();
+            return redirect('/')->with('status',[
+                'title' => "Doesn't have access",
+                'type' => 'danger'
+            ]);
+
+        } else {
+            $kelas = Kelas::all();
+            return view('Kelas.index', compact(['kelas']));
+        }
+
     }
 
     /**

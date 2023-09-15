@@ -15,10 +15,10 @@
                     <div class="card">
                         <div class="card-header">
                             <h3>Halaman Kelola Data Petugas</h3>
-                            <a href="/user/create" id="example" class="btn btn-primary">Tambah Data</a>
+                            <a href="/user/create" class="btn btn-primary">Tambah Data</a>
                         </div>
                         <div class="card-body">
-                            <table class="table table-bordered table-hover table-striped">
+                            <table class="table table-bordered table-hover table-striped" id="example">
                                 <thead>
                                     <tr>
                                         <th>ID</th>

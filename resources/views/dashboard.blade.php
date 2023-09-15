@@ -98,7 +98,7 @@
                   <h3>Sample Table</h3>
               </div>
               <div class="card-body">
-              <table class="table table-bordered">
+              <table class="table table-bordered" id="example">
                 <thead>
                   <tr>
                     <th style="width: 10px">#</th>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -15,8 +16,17 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::all();
-        return view('User.index', compact(['user']));
+        if (Auth()->user()->level !== 'admin') {
+            Auth::logout();
+            return redirect('/')->with('status',[
+                'title' => "Doesn't have access",
+                'type' => 'danger'
+            ]);
+
+        } else {
+            $user = User::all();
+            return view('User.index', compact(['user']));
+        }
     }
 
     /**

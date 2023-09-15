@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\SPP;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SPPController extends Controller
 {
@@ -14,8 +15,17 @@ class SPPController extends Controller
      */
     public function index()
     {
-        $spp = SPP::all();
-        return view('SPP.index', compact(['spp']));
+        if (Auth()->user()->level !== 'admin') {
+            Auth::logout();
+            return redirect('/')->with('status',[
+                'title' => "Doesn't have access",
+                'type' => 'danger'
+            ]);
+
+        } else {
+            $spp = SPP::all();
+            return view('SPP.index', compact(['spp']));
+        }
     }
 
     /**
